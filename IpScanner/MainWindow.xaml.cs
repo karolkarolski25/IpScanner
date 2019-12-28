@@ -16,7 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Threading;
 using System.Xml;
 
-namespace IpScanner
+namespace IpScanner sdf
 {
     public partial class MainWindow : Window
     {
