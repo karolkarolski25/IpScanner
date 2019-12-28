@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="IpScanner.Windows.Zapisane_utwory"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Height="520" Width="780" Background="#505461"
+        BorderBrush="White"
+        BorderThickness="1">
+
+    <UserControl.Resources>
+        <Style TargetType="ListViewItem">
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsSelected" Value="true"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" Value="Gray"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </MultiTrigger>
+
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver" Value="true"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="ToolTip" Value="Podwójne naciśnięcie myszki - Otwarcie przeglądarki z teledyskiem utworu"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="50"/>
+        </Style>
+        
+    </UserControl.Resources>
+
+    <Grid HorizontalAlignment="Stretch">
+        <Grid.Effect>
+            <DropShadowEffect/>
+        </Grid.Effect>
+        <ListView x:Name="BazaListView" Foreground="White" FontSize="16" Background="Transparent" BorderBrush="Transparent"
+                  BorderThickness="0" HorizontalAlignment="Left" Height="456" Margin="10,52,0,0" VerticalAlignment="Top"
+                  Width="758" MouseDoubleClick="BazaListView_MouseDoubleClick">
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="55" DisplayMemberBinding="{Binding LP}">
+                        <GridViewColumnHeader Tag="LP" Click="GridViewColumnHeader_Click">Lp.</GridViewColumnHeader>
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding Radio}">
+                        <GridViewColumnHeader Tag="Radio" Click="GridViewColumnHeader_Click">Radio:</GridViewColumnHeader>
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding Title}">
+                        <GridViewColumnHeader Tag="Title" Click="GridViewColumnHeader_Click">Tytuł:</GridViewColumnHeader>
+                    </GridViewColumn>
+
+                    <GridViewColumn Width="190" DisplayMemberBinding="{Binding Time}">
+                        <GridViewColumnHeader Tag="Time" Click="GridViewColumnHeader_Click">Godzina:</GridViewColumnHeader>
+                    </GridViewColumn>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBox x:Name="PortFilterTextBox" Foreground="White" Background="Transparent" BorderBrush="White" BorderThickness="1" TextChanged="PortFilterTextBox_TextChanged" HorizontalAlignment="Left" Height="23" Margin="458,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="304" RenderTransformOrigin="2.177,0.239"/>
+        <ComboBox x:Name="FilterComboBox" HorizontalAlignment="Left" Margin="21,13,0,0" VerticalAlignment="Top" Width="162" SelectedIndex="0">
+            <ComboBoxItem>Filtruj według</ComboBoxItem>
+            <ComboBoxItem>Lp.</ComboBoxItem>
+            <ComboBoxItem>Radio</ComboBoxItem>
+            <ComboBoxItem>Tytuł</ComboBoxItem>
+            <ComboBoxItem>Godzina</ComboBoxItem>
+        </ComboBox>
+        <Label Content="Filtrowanie danych: " FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="303,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.423,0.355"/>
+        <Button x:Name="RefreshButton" Style="{StaticResource ButtonStyle}" Width="40" Height="40"
+                ToolTip="Naciśnij jeżeli utwór został zapisany, a nie ma go na liście"
+                HorizontalAlignment="Left" Margin="225,7,0,0" VerticalAlignment="Top"
+                MouseEnter="RefreshButton_MouseEnter" MouseLeave="RefreshButton_MouseLeave"
+                PreviewMouseLeftButtonDown="RefreshButton_PreviewMouseLeftButtonDown"
+                PreviewMouseLeftButtonUp="RefreshButton_PreviewMouseLeftButtonUp">
+            
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Icons/OtherIcons/RefreshIcon.ico"/>
+            </Button.Background>
+        </Button>
+    </Grid>
+</UserControl>

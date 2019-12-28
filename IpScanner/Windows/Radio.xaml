@@ -1,0 +1,157 @@
+﻿<UserControl x:Class="IpScanner.Windows.Radio"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        KeyDown="Window_KeyDown"
+        Height="520"
+        Width="780"
+        Background="#505461">
+
+    <UserControl.Resources>
+        <Style x:Key="PlayerStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="50"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.Effect>
+            <DropShadowEffect ShadowDepth="8"/>
+        </Grid.Effect>
+
+        <Button x:Name="Play_button" Style="{StaticResource PlayerStyle}" Click="Play_button_Click" Margin="524,0,0,20"
+                Height="56" Width="54" Tag="1" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown"
+                MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+            
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Icons/RadioIcons/PlayIcon.ico"/>
+            </Button.Background>
+        </Button>
+
+        <Button x:Name="Stop_button" Style="{StaticResource PlayerStyle}" Click="Stop_button_Click"
+                Margin="443,0,0,21" Height="56" Width="54" Tag="2" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown"
+                MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+            
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Icons/RadioIcons/StopIcon.ico"/>
+            </Button.Background>
+        </Button>
+
+        <Button x:Name="Prawo_button" Style="{StaticResource PlayerStyle}" Click="Prawo_button_Click"
+                Margin="676,0,0,20" Height="56" Width="54" Tag="3" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown"
+                MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+            
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Icons/RadioIcons/NextIcon.ico"/>
+            </Button.Background>
+        </Button>
+
+        <Button x:Name="Pause_button" Style="{StaticResource PlayerStyle}" Click="Pause_button_Click"
+                Margin="602,0,0,20" Height="56" Width="54" Tag="4" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown"
+                MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+            
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Icons/RadioIcons/PauseIcon.ico"/>
+            </Button.Background>
+        </Button>
+
+        <Button x:Name="Lewo_button" Style="{StaticResource PlayerStyle}" Click="Lewo_button_Click"
+                Margin="367,0,0,21" Height="56" Width="54" Tag="5" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown"
+                MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+            
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Icons/RadioIcons/PreviousIcon.ico"/>
+            </Button.Background>
+        </Button>
+
+        <Button x:Name="Rand_button" Style="{StaticResource PlayerStyle}" Click="Rand_button_Click" Margin="287,0,0,21"
+                Height="56" Width="53" Tag="6" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown"
+                MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+            
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Icons/RadioIcons/RandomIcon.ico"/>
+            </Button.Background>
+        </Button>
+
+        <Button x:Name="Mute_button" Style="{StaticResource PlayerStyle}" Click="Mute_button_Click"
+                Margin="19,0,0,6" Tag="7" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown"
+                MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+            
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Icons/RadioIcons/SpeakerIcon.ico"/>
+            </Button.Background>
+        </Button>
+
+        <Button x:Name="Refresh_button" Style="{StaticResource PlayerStyle}" HorizontalAlignment="Left" Margin="243,65,0,0" 
+                VerticalAlignment="Top" Tag="8" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown" ToolTip="Odśwież zawartość stacji radiowych"
+                PreviewMouseLeftButtonUp="Refresh_button_PreviewMouseLeftButtonUp"  MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Height="40" Width="40">
+            
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Icons/OtherIcons/RefreshIcon.ico"/>
+            </Button.Background>
+        </Button>
+        
+        <MediaElement x:Name="Main_player" MediaOpened="Main_player_MediaOpened" LoadedBehavior="Manual" HorizontalAlignment="Left" Height="48" Margin="-112,120,0,0" VerticalAlignment="Top" Width="51"/>
+        <ComboBox x:Name="Nazwa_combobox" SelectionChanged="Nazwa_combobox_SelectionChanged" HorizontalAlignment="Left" Margin="260,159,0,0" VerticalAlignment="Top" Width="202" Height="23"/>
+        <Label x:Name="Now_playing_label" Foreground="White" FontSize="20" Content="Teraz grane: " HorizontalAlignment="Left" Margin="571,38,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.388,-0.757"/>
+        <Label x:Name="Vol_label" FontSize="16" Foreground="White" Content="Głośność: " HorizontalAlignment="Right" Margin="-2,436,636,0" VerticalAlignment="Top" RenderTransformOrigin="0.51,0.191" Width="144"/>
+        <Label Content="Dostępne stacje" Foreground="White" FontSize="16" HorizontalAlignment="Left" Margin="294,123,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.412,0.264"/>
+        <Slider x:Name="Volume_slider"  TickFrequency="10" Value="100" TickPlacement="BottomRight" HorizontalAlignment="Left" Margin="84,484,0,0" VerticalAlignment="Top" Width="152" Maximum="100" ValueChanged="Volume_slider_ValueChanged" SmallChange="10"/>
+        <Slider x:Name="Czas_slider" HorizontalAlignment="Left" ToolTip="Pozostały czas" TickPlacement="BottomRight" TickFrequency="10" Value="100" Margin="0,412,0,0" VerticalAlignment="Top" Width="754"/>
+        <Label Content="0:00" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="0,386,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Time_label" Content="00:00:00" Foreground="White" FontSize="16" HorizontalAlignment="Left" Margin="685,381,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.658,0.517"/>
+        <Button x:Name ="Browser_button" Content="Radio w przeglądarce" FontSize="16" HorizontalAlignment="Left" Margin="25,175,0,0" VerticalAlignment="Top" Width="166" Click="Browser_button_Click"/>
+        <TextBox x:Name="Stacja_textbox" BorderBrush="White" BorderThickness="1" IsReadOnly="True" HorizontalAlignment="Left" FontSize="16" Foreground="White" Height="142" Margin="517,80,0,0" Background="Transparent" TextWrapping="Wrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Width="222"/>
+        <Button x:Name="Save_button" Content="Zapisz piosenkę" FontSize="16" HorizontalAlignment="Left" Margin="25,138,0,0" VerticalAlignment="Top" Width="166" Click="Save_button_Click"/>
+        <Slider x:Name="Balance_slider" HorizontalAlignment="Left" TickFrequency="30" TickPlacement="BottomRight" Margin="86,458,0,0" Maximum="100" Minimum="-100" VerticalAlignment="Top" RenderTransformOrigin="-2.5,2.556" Width="154" SmallChange="10" ValueChanged="Balance_slider_ValueChanged"/>
+        <Label x:Name="Balance_label" Content="Balans: 0" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="149,427,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="Hours_combobox" HorizontalAlignment="Left" Margin="38,286,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="Minutes_combobox" HorizontalAlignment="Left" Margin="192,286,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="Seconds_combobox" HorizontalAlignment="Left" Margin="341,286,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Godziny:                   Minuty:                      Sekundy: " FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="44,250,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="Start_minutnik_button" Content="Start" FontSize="16" HorizontalAlignment="Left" Margin="50,329,0,0" VerticalAlignment="Top" Width="75" Click="Start_minutnik_button_Click"/>
+        <Button x:Name="Stop_minutnik_button" Content="Stop" FontSize="16" HorizontalAlignment="Left" Margin="208,329,0,0" VerticalAlignment="Top" Width="75" Click="Stop_minutnik_button_Click"/>
+        <Button x:Name="Reset_minutnik_button" Content="Reset" FontSize="16" HorizontalAlignment="Left" Margin="364,329,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.32,0.2" Click="Reset_minutnik_button_Click"/>
+        <Label Content="Czynność na koniec czasu" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="516,250,0,0" VerticalAlignment="Top" Width="201"/>
+        <ComboBox x:Name="Decision_combobox" HorizontalAlignment="Left" Margin="482,286,0,0" VerticalAlignment="Top" Width="257">
+            <ComboBoxItem>Zamknij program (Wszytskie okna)</ComboBoxItem>
+            <ComboBoxItem>Zamknij radio</ComboBoxItem>
+            <ComboBoxItem>Wycisz</ComboBoxItem>
+            <ComboBoxItem>Stop</ComboBoxItem>
+            <ComboBoxItem>Pauza</ComboBoxItem>
+            <ComboBoxItem>Zmnień stację na następną</ComboBoxItem>
+            <ComboBoxItem>Zmień stację na poprzednią</ComboBoxItem>
+            <ComboBoxItem>Wyłącz komputer</ComboBoxItem>
+            <ComboBoxItem>Nic nie rób (Just testing :P)</ComboBoxItem>
+        </ComboBox>
+        <Label x:Name="Minutnik_label" Content="Pozostały czas: " FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="482,326,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.328,0.484"/>
+        <GroupBox Header="Minutnik" Foreground="White" FontSize="16" HorizontalAlignment="Left" Height="149" Margin="25,227,0,0" VerticalAlignment="Top" Width="729"/>
+        <Label x:Name="State_player_label" Content="Aktualny stan: " FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="260,199,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="Allstationsplaying_button" Content="Aktualnie grane" FontSize="16" HorizontalAlignment="Left" Margin="25,99,0,0" VerticalAlignment="Top" Width="164" Click="Allstationsplaying_button_Click"/>
+        <Button x:Name="Yt_button" Content="Szukaj w necie" FontSize="16" HorizontalAlignment="Left" Margin="27,56,0,0" VerticalAlignment="Top" Width="164" Click="Yt_button_Click"/>
+        <ProgressBar x:Name="LeftAudioProgressBar" Minimum="0" Maximum="100" HorizontalAlignment="Left" Height="15" Margin="64,10,0,0" VerticalAlignment="Top" Width="136"/>
+        <TextBlock  Text="{Binding ElementName=LeftAudioProgressBar, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="121,9,570,495" Width="89"/>
+        <ProgressBar x:Name="MainAudioProgressBar" Minimum="0" Maximum="100" HorizontalAlignment="Left" Height="15" Margin="342,11,0,0" VerticalAlignment="Top" Width="136" RenderTransformOrigin="-0.199,-4.067"/>
+        <TextBlock Text="{Binding ElementName=MainAudioProgressBar, Path=Value, StringFormat={}{0:0}%}" VerticalAlignment="Top" TextAlignment="Center" Margin="367,10,341,0"/>
+        <ProgressBar x:Name="RightAudioProgressBar" Minimum="0" Maximum="100" HorizontalAlignment="Left" Height="15" Margin="603,10,0,0" VerticalAlignment="Top" Width="136"/>
+        <TextBlock Text="{Binding ElementName=RightAudioProgressBar, Path=Value, StringFormat={}{0:0}%}" VerticalAlignment="Top" TextAlignment="Center" Margin="650,10,88,0"/>
+        <Label Content="Główny: " FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="266,3,0,0" VerticalAlignment="Top"/>
+        <Label Content="Lewy: " FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="11,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.491,0.484"/>
+        <Label Content="Prawy: " FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="538,2,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="AudioDevicesComboBox" HorizontalAlignment="Left" Margin="364,80,0,0" VerticalAlignment="Top" Width="120" Height="23" RenderTransformOrigin="0.225,0.13"/>
+    </Grid>
+</UserControl>

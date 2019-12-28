@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="IpScanner.Windows.Lista_stacji"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Height="460" Width="1200" Background="#505461"
+        BorderBrush="White"
+        BorderThickness="1">
+
+    <UserControl.Resources>
+        <Style TargetType="ListViewItem">
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsSelected" Value="true"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" Value="Gray"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </MultiTrigger>
+
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver" Value="true"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="ToolTip" Value="Podwójne kliknięcie - Otwarcie strony radia"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.Effect>
+            <DropShadowEffect/>
+        </Grid.Effect>
+        <ListView x:Name="ListView" Foreground="White" FontSize="16" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Left" Height="398" Margin="10,43,0,0" VerticalAlignment="Top" Width="1175" MouseDoubleClick="ListView_MouseDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="50" DisplayMemberBinding="{Binding LP}">
+                        <GridViewColumnHeader Tag="LP" Click="SortClick_Click">Lp.</GridViewColumnHeader>
+                    </GridViewColumn>
+
+                    <GridViewColumn Width="250" DisplayMemberBinding="{Binding Radio}">
+                        <GridViewColumnHeader Tag="Radio" Click="SortClick_Click">Nazwa stacji:</GridViewColumnHeader>
+                    </GridViewColumn>
+
+                    <GridViewColumn Width="420" DisplayMemberBinding="{Binding Stream}">
+                        <GridViewColumnHeader Tag="Stream" Click="SortClick_Click">Link do streama:</GridViewColumnHeader>
+                    </GridViewColumn>
+
+                    <GridViewColumn Width="430" DisplayMemberBinding="{Binding Link}">
+                        <GridViewColumnHeader Tag="Link" Click="SortClick_Click">Link do stacji:</GridViewColumnHeader>
+                    </GridViewColumn>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ComboBox x:Name="FilterComboBox" HorizontalAlignment="Left" Margin="193,8,0,0" VerticalAlignment="Top" Width="164"/>
+        <Label Content="Filtrowanie danych" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="374,5,0,0" VerticalAlignment="Top" Width="146"/>
+        <TextBox x:Name="FilterTextBox" HorizontalAlignment="Left" Height="23" Margin="538,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="404" TextChanged="FilterTextBox_TextChanged"/>
+    </Grid>
+</UserControl>

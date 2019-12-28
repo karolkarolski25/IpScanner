@@ -1,0 +1,152 @@
+﻿<UserControl x:Class="IpScanner.Windows.CompUsageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        KeyDown="Window_KeyDown"
+        mc:Ignorable="d"
+        Height="750" Width="1200" Background="#505461">
+
+    <Grid>
+        <Grid.Effect>
+            <DropShadowEffect/>
+        </Grid.Effect>
+
+        <Grid.Resources>
+            <Style x:Key="CleanSeparator" TargetType="lvc:Separator">
+                <Setter Property="IsEnabled" Value="False"/>
+            </Style>
+
+            <Style x:Key="NotCleanSeparator" TargetType="lvc:Separator">
+                <Setter Property="IsEnabled" Value="True"/>
+            </Style>
+
+            <Style TargetType="lvc:DefaultTooltip">
+                <Setter Property="Background" Value="DarkOrange"></Setter>
+                <Setter Property="Foreground" Value="White"></Setter>
+                <Setter Property="ShowTitle" Value="False"></Setter>
+                <Setter Property="ShowSeries" Value="True"></Setter>
+                <Setter Property="FontSize" Value="16"></Setter>
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+                <Setter Property="CornerRadius" Value="20"></Setter>
+                <Setter Property="Width" Value="auto"></Setter>
+                <Setter Property="Height" Value="auto"></Setter>
+                <Setter Property="BorderThickness" Value="0"></Setter>
+            </Style>
+
+        </Grid.Resources>
+
+        <lvc:CartesianChart Series="{Binding CpuSeriesCollection}" Hoverable="False" LegendLocation="Top" Foreground="White" FlowDirection="LeftToRight" Margin="10,12,625,514">
+
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Czas (s)" MinValue="0" FlowDirection="RightToLeft" Foreground="White" FontSize="16">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Style="{StaticResource NotCleanSeparator}"/>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Użycie CPU (%)" MinValue="0" Position="LeftBottom" Foreground="White" FontSize="16">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Style="{StaticResource NotCleanSeparator}"></lvc:Separator>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+            </lvc:CartesianChart.AxisY>
+
+        </lvc:CartesianChart>
+
+        <lvc:CartesianChart Foreground="White" Margin="575,6,10,509" LegendLocation="Top">
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Użycie RAM (%)" MinValue="0" Position="RightTop" Foreground="White" FontSize="16">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Style="{StaticResource CleanSeparator}"></lvc:Separator>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+                <lvc:Axis Title="Wolna pamięć (MB)" MinValue="0" Position="LeftBottom" Foreground="White" FontSize="16">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Style="{StaticResource CleanSeparator}"></lvc:Separator>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+                <lvc:Axis Title="Zajęta pamięć (MB)" MinValue="0" Position="RightTop" Foreground="White" FontSize="16"/>
+            </lvc:CartesianChart.AxisY>
+
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Czas (s)" MinValue="0" FlowDirection="RightToLeft" Foreground="White" FontSize="16">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Style="{StaticResource NotCleanSeparator}"/>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+
+            <lvc:CartesianChart.Series>
+                <lvc:LineSeries Values="{Binding RamValues}" FontSize="13" Fill="Transparent" FontFamily="Verdana" Foreground="White" Title="Użycie (%)" ScalesYAt="0"/>
+                <lvc:LineSeries Values="{Binding AvailableRamValues}" FontSize="13" Fill="Transparent" FontFamily="Verdana" Foreground="White" Title="Wolne (MB)" ScalesYAt="1"/>
+                <lvc:LineSeries Values="{Binding BusyRamValues}" FontSize="13" Fill="Transparent" FontFamily="Verdana" Foreground="White" Title="Zajęte (MB)" ScalesYAt="2"/>
+            </lvc:CartesianChart.Series>
+        </lvc:CartesianChart>
+
+        <lvc:CartesianChart Foreground="White" Margin="10,239,625,264" LegendLocation="Top">
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Użycie Dysku(ów)   (%)" MinValue="0" Position="LeftBottom" Foreground="White" FontSize="16"/>
+            </lvc:CartesianChart.AxisY>
+
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Czas (s)" MinValue="0" FlowDirection="RightToLeft" Foreground="White" FontSize="16">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Style="{StaticResource NotCleanSeparator}"/>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+
+            <lvc:CartesianChart.Series>
+                <lvc:LineSeries Values="{Binding DiskValues}" FontSize="13" FontFamily="Verdana" Foreground="White" Title="Użycie (%)" ScalesYAt="0"/>
+            </lvc:CartesianChart.Series>
+        </lvc:CartesianChart>
+
+        <lvc:CartesianChart Foreground="White" Margin="575,239,10,264" LegendLocation="Top">
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Zapis (MB/s)" MinValue="0" Position="LeftBottom" Foreground="White" FontSize="16">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Style="{StaticResource CleanSeparator}"></lvc:Separator>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+                <lvc:Axis Title="Odczyt (MB/s)" MinValue="0" Position="RightTop" Foreground="White" FontSize="16"/>
+            </lvc:CartesianChart.AxisY>
+
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Czas (s)" MinValue="0" FlowDirection="RightToLeft" Foreground="White" FontSize="16">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Style="{StaticResource NotCleanSeparator}"/>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+
+            <lvc:CartesianChart.Series>
+                <lvc:LineSeries Values="{Binding ReadDiskValues}" FontSize="10" FontFamily="Verdana" Foreground="White" Title="Odczyt (MB/s)" ScalesYAt="0"/>
+                <lvc:LineSeries Values="{Binding WriteDiskValues}" FontSize="10" Foreground="White" FontFamily="Verdana" Title="Zapis (MB/s)" ScalesYAt="1"/>
+            </lvc:CartesianChart.Series>
+
+        </lvc:CartesianChart>
+
+        <Label x:Name="CpuUsageLabel" Content="Użycie CPU: " FontSize="16" Foreground="#ff0000" HorizontalAlignment="Left" Margin="43,567,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.862,0.952"/>
+        <Label x:Name="StateLabel" Content="Stan: Monitorowanie w trakcie" Foreground="White" FontSize="20" HorizontalAlignment="Left" Margin="802,491,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.134,0.588"/>
+        <Label x:Name="RamUsageLabel" FontSize="16" Foreground="#498FFF" Content="Użycie RAM:" HorizontalAlignment="Left" Margin="43,603,0,0" VerticalAlignment="Top" RenderTransformOrigin="1,0.645"/>
+        <Label x:Name="CpuName" FontSize="16" Foreground="White" Content="Label" HorizontalAlignment="Left" Margin="43,531,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="HardDiskLabel" Content="Użycie Dysku twardego: " FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="680,545,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="DiskComboBox" SelectedIndex="0" Text="Wybierz dysk" HorizontalAlignment="Left" SelectionChanged="DiskComboBox_SelectionChanged" Margin="976,576,0,0" VerticalAlignment="Top" Width="136"/>
+        <Label x:Name="ReadDiskLabel" Content="Odczyt: " FontSize="16" Foreground="Orange" HorizontalAlignment="Left" Margin="680,576,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="WriteDiskLabel" Content="Zapis: " FontSize="16" Foreground="GreenYellow" HorizontalAlignment="Left" Margin="680,612,0,0" VerticalAlignment="Top" RenderTransformOrigin="-16.546,-0.403"/>
+        <GroupBox Header="Dysk Twardy" FontSize="16" Foreground="White" HorizontalAlignment="Left" Height="137" Margin="664,518,0,0" VerticalAlignment="Top" Width="476"/>
+        <Label Content="Wybierz dysk" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="992,540,0,0" VerticalAlignment="Top"/>
+        <GroupBox Header="CPU i RAM" FontSize="16" Foreground="White" HorizontalAlignment="Left" Height="151" Margin="24,504,0,0" VerticalAlignment="Top" Width="530"/>
+        <CheckBox x:Name="CPUCheckBox" Content="Wyłącz wykres zużycia procesora" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="894,678,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="RamCheckBox" Content="Wyłącz wykres zużycia pamięci RAM" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="894,714,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="DiskUsageCheckBox" Content="Wyłącz wykres zużycia dysków" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="116,674,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="WriteAndReadCheckBox" Content="Wyłącz wykres zapisu i odczytu" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="116,710,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="StopCheckBox" Content="Zatrzymaj monitorowanie" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="493,714,0,0" VerticalAlignment="Top" Checked="StopCheckBox_Checked" Unchecked="StopCheckBox_Unchecked"/>
+        <CheckBox x:Name="StopAllChartsCheckBox" Content="Zatrzymaj wszystkie wykresy" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="493,674,0,0" VerticalAlignment="Top" Checked="StopAllChartsCheckBox_Checked" Unchecked="StopAllChartsCheckBox_Unchecked" RenderTransformOrigin="0.557,1.35"/>
+        <Label x:Name="CpuDataLabel" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="-365,234,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</UserControl>

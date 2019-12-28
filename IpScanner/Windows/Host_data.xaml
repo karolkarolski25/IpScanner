@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="IpScanner.Windows.Host_data"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Height="710" Width="800" Background="#505461">
+
+    <Grid>
+        <Grid.Effect>
+            <DropShadowEffect/>
+        </Grid.Effect>
+
+        <Grid.Resources>
+            <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Verdana"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="IsReadOnly" Value="True"/>
+            </Style>
+
+            <Style x:Key="ImageStyle" TargetType="{x:Type Button}">
+                <Setter Property="Visibility" Value="Hidden"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="0">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+
+        <TextBox x:Name="textbox" Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Center" TextAlignment="Center" Margin="30,108,36,332" Width="732"/>
+        <ComboBox x:Name="CopyComboBox" SelectionChanged="CopyComboBox_SelectionChanged" FontSize="16" HorizontalAlignment="Left" SelectedIndex="0" VerticalAlignment="Top" Width="170" RenderTransformOrigin="1.893,-3.591" Margin="548,41,0,0">
+            <ComboBoxItem>Wybierz pozycję</ComboBoxItem>
+            <ComboBoxItem>Prywatny adres IP</ComboBoxItem>
+            <ComboBoxItem>Adres MAC</ComboBoxItem>
+            <ComboBoxItem>Dane prywatne spacją</ComboBoxItem>
+            <ComboBoxItem>Publiczny adres IP</ComboBoxItem>
+            <ComboBoxItem>ISP</ComboBoxItem>
+            <ComboBoxItem>Nazwa hosta</ComboBoxItem>
+            <ComboBoxItem>Lokalizacja</ComboBoxItem>
+            <ComboBoxItem>Dane lokalizacyjne</ComboBoxItem>
+        </ComboBox>
+        <CheckBox x:Name="HideMacAdressCheckBox" IsChecked="True" FontSize="16" Foreground="White" Content="Zakryj adresy MAC" HorizontalAlignment="Left" Margin="30,38,0,0" VerticalAlignment="Top" Checked="HideMacAdressCheckBox_Checked" Unchecked="HideMacAdressCheckBox_Unchecked"/>
+        <GroupBox Header="Dane prywatne" Foreground="White" FontSize="16" HorizontalAlignment="Left" Height="319" Margin="10,76,0,0" VerticalAlignment="Top" Width="765"/>
+        <GroupBox Header="Dane publiczne" Foreground="White" FontSize="16" HorizontalAlignment="Left" Height="298" Margin="10,400,0,0" VerticalAlignment="Top" Width="765"/>
+        <TextBox x:Name="PublicDataTextBox" Visibility="Visible" BorderThickness="0" FontSize="16" TextAlignment="Center" IsReadOnly="True" HorizontalAlignment="Left" Height="254" Margin="30,430,0,0" BorderBrush="Transparent" Foreground="White" Background="Transparent" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="732" RenderTransformOrigin="0.027,1.468"/>
+        <ComboBox x:Name="SaveDataToNotepadComboBox" HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged" FontSize="16" Margin="223,39,0,0" VerticalAlignment="Top" Width="157">
+            <ComboBoxItem>Wybierz pozycję</ComboBoxItem>
+            <ComboBoxItem>Prywatne</ComboBoxItem>
+            <ComboBoxItem>Publiczne</ComboBoxItem>
+        </ComboBox>
+        <ProgressBar x:Name="DownloadStringProgressBar" IsIndeterminate="True" HorizontalAlignment="Left" Height="11" Margin="240,586,0,0" VerticalAlignment="Top" Width="288"/>
+        <Label x:Name="ProgressLabel" Content="Stan: Pobieram dane " FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="316,550,0,0" VerticalAlignment="Top"/>
+        <Label Content="Kopiowanie danych do schowka" Foreground="White" FontSize="16" HorizontalAlignment="Left" Margin="516,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Zapisywanie danyh w pliku" Foreground="White" FontSize="16" HorizontalAlignment="Left" Margin="200,10,0,0" VerticalAlignment="Top"/>
+
+        <Button x:Name="MapButton" Style="{StaticResource ImageStyle}" ToolTip="Zobacz lokalizację na mapie"
+                Margin="428,19,323,642" MouseEnter="MapButton_MouseEnter" MouseLeave="MapButton_MouseLeave"
+                PreviewMouseLeftButtonDown="MapButton_PreviewMouseLeftButtonDown"
+                PreviewMouseLeftButtonUp="MapButton_PreviewMouseLeftButtonUp">
+            
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Icons/MapIcons/MapIcon.ico"/>
+            </Button.Background>
+        </Button>
+    </Grid>
+</UserControl>

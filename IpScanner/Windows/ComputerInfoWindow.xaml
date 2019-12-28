@@ -1,0 +1,71 @@
+﻿<Window x:Class="IpScanner.Windows.ComputerInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IpScanner.Windows"
+        mc:Ignorable="d"
+        MouseDown="Window_MouseDown"
+        KeyDown="Window_KeyDown"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Title="Użycie komputera" Height="770" Width="1200" Background="#505461" BorderBrush="White" BorderThickness="1">
+
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="50"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <TabControl HorizontalAlignment="Left" Height="768" VerticalAlignment="Top" Width="1198">
+
+            <TabItem Header="Bierzące użycie komputera">
+                <local:CompUsageWindow/>
+            </TabItem>
+
+            <TabItem Header="Informacje o podzespołach">
+                <local:HardwareInfoWindow/>
+            </TabItem>
+
+            <TabItem Header="Ogólnie informacje">
+                <local:CompInfo/>
+            </TabItem>
+        </TabControl>
+
+        <Button x:Name="ExitButton" Tag="1" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown"
+                PreviewMouseLeftButtonUp="ExitButton_PreviewMouseLeftButtonUp"  MouseEnter="Button_MouseEnter"
+                MouseLeave="Button_MouseLeave" Style="{StaticResource ResourceKey=ButtonStyle}"
+                ToolTip="Zamknij okno" HorizontalAlignment="Left" Margin="1155,0,0,0" VerticalAlignment="Top"
+                Width="21" Height="21">
+            
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Icons/OtherIcons/CloseIcon.ico"/>
+            </Button.Background>
+        </Button>
+
+        <Button x:Name="MinimizeButton" Tag="2" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown" 
+                PreviewMouseLeftButtonUp="MinimizeButton_PreviewMouseLeftButtonUp"  MouseEnter="Button_MouseEnter"
+                MouseLeave="Button_MouseLeave" Style="{StaticResource ButtonStyle}"
+                ToolTip="Minimalizuj okno" HorizontalAlignment="Left" Margin="1129,0,0,0" VerticalAlignment="Top"
+                Width="21" Height="21">
+            
+            <Button.Background>
+                <ImageBrush ImageSource="/Assets/Icons/OtherIcons/MinimizeIcon.ico"/>
+            </Button.Background>
+        </Button>
+    </Grid>
+</Window>
